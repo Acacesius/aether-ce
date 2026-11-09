@@ -1,0 +1,26 @@
+[
+ {
+  "rule": "home_path_windows",
+  "path": "tests/studio/test_doctor.py",
+  "sha256": "f41cd2c4c29b4ba477840919d87e5895cedd896c64ba68fa9dc7a45392e15f66",
+  "why": "fixture: doctor.redact() must redact Windows user names"
+ },
+ {
+  "rule": "home_path_windows",
+  "path": "tests/studio/test_doctor.py",
+  "sha256": "482ec5749d03e783793990e57dd73c6b73a185ba36c688d55f4e75b84e219f33",
+  "why": "fixture: doctor.redact() must redact Windows user names"
+ },
+ {
+  "rule": "home_path_windows",
+  "path": "tests/studio/test_doctor.py",
+  "sha256": "c626995bfc5dd1d9da20afed563b5537a34a0ca4404fd17d8f8eb5e7daa128c8",
+  "why": "fixture: doctor.redact() must redact Windows user names"
+ },
+ {
+  "rule": "home_path_windows",
+  "path": "tests/studio/test_doctor.py",
+  "sha256": "85909a2f6b6fdd2c56e5966f6ecc07e11f1d860b31c1d915dea78d9fc4046f60",
+  "why": "fixture: doctor.redact() must redact Windows user names"
+ }
+]

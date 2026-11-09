@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="color-scheme" content="dark light">
+<meta name="theme-color" content="#0f1419">
+<title>AETHER Studio</title>
+<link rel="icon" href="data:,">
+<link rel="stylesheet" href="/studio/studio.css">
+<script type="module" src="/studio/studio.js"></script>
+</head>
+<body>
+<a class="skip" href="#panel">Skip to content</a>
+<header class="masthead">
+  <div class="brand"><span class="brand-mark" aria-hidden="true"></span> AETHER <em>Studio</em></div>
+  <div class="mast-right">
+    <button type="button" id="theme" class="ghost icon-btn">Theme: auto</button>
+    <button type="button" id="lock" class="ghost icon-btn">Lock</button>
+  </div>
+</header>
+<main>
+  <section id="login" aria-labelledby="login-h" hidden>
+    <form id="login-form" class="card" autocomplete="off">
+      <h1 id="login-h">Owner access</h1>
+      <p>Enter the owner token for this Studio install. It stays in this tab only and is sent to this server only.</p>
+      <div class="field"><label for="token">Owner token</label><input id="token" type="password" required autocomplete="off" spellcheck="false"></div>
+      <p id="login-msg" class="status-line error" role="alert"></p>
+      <button type="submit" class="primary">Unlock Studio</button>
+    </form>
+  </section>
+  <div id="app" hidden>
+    <h1 class="sr-only">AETHER Studio</h1>
+    <p id="banner" class="banner" role="status"></p>
+    <nav class="nav" aria-label="Studio">
+      <div id="tabs" role="tablist" aria-label="Studio sections"></div>
+      <a id="quick-link" class="nav-link" href="#quick">Quick Run</a>
+    </nav>
+    <div id="panel" role="tabpanel" tabindex="-1"></div>
+  </div>
+</main>
+<noscript><p class="card">AETHER Studio needs JavaScript.</p></noscript>
+</body>
+</html>

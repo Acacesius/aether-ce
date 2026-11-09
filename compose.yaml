@@ -1,0 +1,39 @@
+# AETHER Community Edition. Launch: docker compose up -d --build   (see docs/QUICKSTART.md)
+# Published on 127.0.0.1 only. No docker.sock, no privileges, no host network, no provider credentials.
+name: aether-ce
+services:
+  studio:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: aether-ce:local
+    user: "10001:10001"
+    read_only: true
+    cap_drop: [ALL]
+    security_opt: ["no-new-privileges:true"]
+    privileged: false
+    pids_limit: 128
+    mem_limit: 256m
+    tmpfs: ["/tmp:size=16m,mode=1777,noexec,nosuid"]
+    environment:
+      AETHER_MODE: custom
+      AETHER_PROVIDER: none
+      AETHER_RUNTIME: docker
+      AETHER_DATA_DIR: /data
+      AETHER_PORT: "8080"
+      AETHER_BIND: 0.0.0.0
+      AETHER_PUBLIC_PORT: "${AETHER_PUBLIC_PORT:-8080}"
+      AETHER_STUDIO_MAX_WORKERS: "${AETHER_STUDIO_MAX_WORKERS:-1}"
+    ports:
+      - "127.0.0.1:${AETHER_PUBLIC_PORT:-8080}:8080"
+    volumes:
+      - studio-data:/data
+    networks: [studio-net]
+    restart: "no"
+    stop_grace_period: 10s
+volumes:
+  studio-data:
+    name: aether-ce-data
+networks:
+  studio-net:
+    name: aether-ce-net

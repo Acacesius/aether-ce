@@ -1,0 +1,48 @@
+{
+  "name": "DEMO harness (failing)",
+  "description": "DEMO: the second stage fails with exit code 3. The run ends failed/exit_nonzero.",
+  "spec": {
+    "mission": "DEMO: simulated failure, no real action is taken",
+    "executor": {
+      "kind": "mock",
+      "ref": "mock:demo",
+      "demo": true
+    },
+    "capabilities": [
+      "demo.run",
+      "artifact.write"
+    ],
+    "limits": {
+      "wall_seconds": 120
+    },
+    "stages": [
+      {
+        "key": "prepare",
+        "title": "DEMO prepare",
+        "executor_step": "mock:success",
+        "timeout_seconds": 60,
+        "capabilities": [
+          "demo.run",
+          "artifact.write"
+        ]
+      },
+      {
+        "key": "explode",
+        "title": "DEMO failing step",
+        "executor_step": "mock:fail:3",
+        "timeout_seconds": 60,
+        "capabilities": [
+          "demo.run",
+          "artifact.write"
+        ],
+        "needs": [
+          "prepare"
+        ]
+      }
+    ],
+    "evidence": {
+      "outputs": [],
+      "require_tests": false
+    }
+  }
+}

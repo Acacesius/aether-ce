@@ -1,0 +1,61 @@
+{
+  "name": "DEMO harness (success)",
+  "description": "DEMO: simulated two-stage run that writes one synthetic artifact. No real action is taken.",
+  "spec": {
+    "mission": "DEMO: simulated run, no real action is taken",
+    "executor": {
+      "kind": "mock",
+      "ref": "mock:demo",
+      "demo": true
+    },
+    "capabilities": [
+      "demo.run",
+      "artifact.write"
+    ],
+    "limits": {
+      "wall_seconds": 120
+    },
+    "stages": [
+      {
+        "key": "prepare",
+        "title": "DEMO prepare",
+        "executor_step": "mock:success",
+        "timeout_seconds": 60,
+        "capabilities": [
+          "demo.run",
+          "artifact.write"
+        ]
+      },
+      {
+        "key": "report",
+        "title": "DEMO report",
+        "executor_step": "mock:artifact:demo-report",
+        "timeout_seconds": 60,
+        "capabilities": [
+          "demo.run",
+          "artifact.write"
+        ],
+        "needs": [
+          "prepare"
+        ],
+        "outputs": [
+          "demo-report"
+        ]
+      }
+    ],
+    "evidence": {
+      "outputs": [
+        "demo-report"
+      ],
+      "require_tests": false
+    },
+    "inputs": [
+      {
+        "name": "topic",
+        "type": "string",
+        "default": "alpha",
+        "max_length": 80
+      }
+    ]
+  }
+}

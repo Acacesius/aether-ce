@@ -1,0 +1,91 @@
+{
+  "name": "DEMO harness (multi-stage DAG: planner, workers, reviewer)",
+  "description": "DEMO: simulated planner -> two parallel workers -> reviewer. The mock executor scripts every step, including the reviewer verdict; nothing is planned, built or reviewed for real.",
+  "spec": {
+    "mission": "DEMO: simulated multi-stage run, no real action is taken",
+    "executor": {
+      "kind": "mock",
+      "ref": "mock:demo",
+      "demo": true
+    },
+    "capabilities": [
+      "demo.run",
+      "artifact.write"
+    ],
+    "limits": {
+      "wall_seconds": 120,
+      "max_workers": 2
+    },
+    "stages": [
+      {
+        "key": "plan",
+        "title": "DEMO plan",
+        "executor_step": "mock:success",
+        "timeout_seconds": 60,
+        "capabilities": [
+          "demo.run",
+          "artifact.write"
+        ],
+        "needs": [],
+        "role": "planner",
+        "max_workers": 2
+      },
+      {
+        "key": "work-a",
+        "title": "DEMO worker A",
+        "executor_step": "mock:artifact:part-a",
+        "timeout_seconds": 60,
+        "capabilities": [
+          "demo.run",
+          "artifact.write"
+        ],
+        "needs": [
+          "plan"
+        ],
+        "role": "worker",
+        "outputs": [
+          "part-a"
+        ]
+      },
+      {
+        "key": "work-b",
+        "title": "DEMO worker B",
+        "executor_step": "mock:artifact:part-b",
+        "timeout_seconds": 60,
+        "capabilities": [
+          "demo.run",
+          "artifact.write"
+        ],
+        "needs": [
+          "plan"
+        ],
+        "role": "worker",
+        "outputs": [
+          "part-b"
+        ]
+      },
+      {
+        "key": "review",
+        "title": "DEMO review (scripted verdict)",
+        "executor_step": "mock:verdict:pass",
+        "timeout_seconds": 60,
+        "capabilities": [
+          "demo.run",
+          "artifact.write"
+        ],
+        "needs": [
+          "work-a",
+          "work-b"
+        ],
+        "role": "reviewer"
+      }
+    ],
+    "evidence": {
+      "outputs": [
+        "part-a",
+        "part-b"
+      ],
+      "require_tests": false
+    }
+  }
+}

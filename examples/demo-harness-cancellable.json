@@ -1,0 +1,35 @@
+{
+  "name": "DEMO harness (cancel-able)",
+  "description": "DEMO: a step that waits until cancelled (or until its 120 s wall limit). Cancel it via the API.",
+  "spec": {
+    "mission": "DEMO: simulated long step, cancel it to see cancelled_by_owner",
+    "executor": {
+      "kind": "mock",
+      "ref": "mock:demo",
+      "demo": true
+    },
+    "capabilities": [
+      "demo.run",
+      "artifact.write"
+    ],
+    "limits": {
+      "wall_seconds": 120
+    },
+    "stages": [
+      {
+        "key": "wait",
+        "title": "DEMO waiting step",
+        "executor_step": "mock:hang",
+        "timeout_seconds": 120,
+        "capabilities": [
+          "demo.run",
+          "artifact.write"
+        ]
+      }
+    ],
+    "evidence": {
+      "outputs": [],
+      "require_tests": false
+    }
+  }
+}
